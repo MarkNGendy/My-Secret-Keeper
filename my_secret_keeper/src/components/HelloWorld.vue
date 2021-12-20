@@ -28,13 +28,24 @@
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
   </div>
+  <div>
+  <button v-on:click= "testSignIn">Add 1</button>
+  </div>
 </template>
 
 <script>
+import UserRepository from "../data/user/repository/user_repository.vue"
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  methods: {
+    testSignIn: async function() {
+      console.log("Hello");
+      await UserRepository.methods.signIn("mark.n.gendy@gmail.com", "123456");
+      console.log("finished");
+    }
   }
 }
 </script>
