@@ -1,15 +1,17 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <HelloWorld/>
+  <CreateDiary/>
+  <RetreiveDiary/>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-
+import CreateDiary from './components/CreateDiary.vue'
+import RetreiveDiary from './data/user/firebase/diary_firebase_manager.vue'
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,CreateDiary,RetreiveDiary
   }
 }
 </script>
