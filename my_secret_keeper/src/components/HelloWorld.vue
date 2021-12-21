@@ -44,6 +44,12 @@ export default {
     testSignIn: async function() {
       console.log("Hello");
       await UserRepository.methods.signIn("mark.n.gendy@gmail.com", "123456");
+      await DiaryRepository.methods.createDiary();
+      await DiaryRepository.methods.updateDiary();
+      await CategoryRepository.methods.createCategory();
+      await CategoryRepository.methods.updateCategory();
+      await TemplateRepository.methods.createTemplate();
+      await TemplateRepository.methods.updateTemplate();
       console.log("finished");
     }
   }
