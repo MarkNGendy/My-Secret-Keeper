@@ -35,9 +35,8 @@
 
 <script>
 import UserRepository from "../data/user/repository/user_repository.vue"
-import DiaryRepository from "../data/user/repository/diary_repository.vue"
-import CategoryRepository from "../data/user/repository/category_repository.vue"
-import TemplateRepository from "../data/user/repository/template_repository.vue"
+//import CategoryRepository from "../data/user/repository/category_repository.vue"
+//import TemplateRepository from "../data/user/repository/template_repository.vue"
 export default {
   name: 'HelloWorld',
   props: {
@@ -47,12 +46,10 @@ export default {
     testSignIn: async function() {
       console.log("Hello");
       await UserRepository.methods.signIn("mark.n.gendy@gmail.com", "123456");
-      await DiaryRepository.methods.createDiary();
-      await DiaryRepository.methods.updateDiary();
-      await CategoryRepository.methods.createCategory();
+      /*await CategoryRepository.methods.createCategory();
       await CategoryRepository.methods.updateCategory();
       await TemplateRepository.methods.createTemplate();
-      await TemplateRepository.methods.updateTemplate();
+      await TemplateRepository.methods.updateTemplate();*/
       console.log("finished");
     }
   }
