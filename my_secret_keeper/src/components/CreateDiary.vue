@@ -7,7 +7,7 @@
       <template v-slot:activator="{ on, attrs }">
         <v-btn
             class="mx-10 ml-10 mt-4"
-            small
+            large
             dark
             fab
             color="cyan"
@@ -15,7 +15,7 @@
             v-on="on"
         >
          
-      <v-icon class="">
+      <v-icon large class="">
         mdi-pencil
       </v-icon>
     </v-btn>
