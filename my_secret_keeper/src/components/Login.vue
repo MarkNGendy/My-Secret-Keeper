@@ -1,13 +1,13 @@
-<template>
-  <div>
+<template >
+  <div >
     <v-content>
       <v-card elevation="10" width="500" height="320" class="mx-auto mt-9">
-        <v-card-title  class="blue--text accent-5 my-5 py-3 "   style="font-size:40px ;font-weight:bold">Login</v-card-title
-        >
+        <v-card-title  class="blue--text accent-5 my-5 py-3 "   style="font-size:40px ;font-weight:bold">Login</v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-          <v-text-field v-model="email" label="Email" prepend-icon="mdi-account-circle" />
+          <v-text-field :rules="Rules" v-model="email" label="Email" prepend-icon="mdi-account-circle" />
           <v-text-field
+           :rules="Rules"
             v-model="password"
             label="Password"
             :type="showPassword ? 'text' : 'password'"
@@ -28,6 +28,7 @@
       </v-card>
     </v-content>
   </div>
+
 </template>
 <script>
 import UserRepository from "../data/user/repository/user_repository.vue"
@@ -37,7 +38,10 @@ export default {
     return {
       showPassword: false,
       email: "",
-      password: ""
+      password: "",
+      Rules:[
+               (v) => !!v || "This field is required"
+            ],
     };
   },
   methods:{
