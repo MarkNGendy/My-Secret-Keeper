@@ -40,7 +40,7 @@ export default {
        links: [
         { icon: 'mdi-note', text: 'Diaries', route: '/home' },
         { icon: 'mdi-archive', text: 'Archive', route: '/archive' },
-        { icon: 'mdi-delete', text: 'Bin', route: '/bin' },
+        { icon: 'mdi-delete', text: 'Trash', route: '/bin' },
       ]
     }
   },
