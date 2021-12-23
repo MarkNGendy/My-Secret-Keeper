@@ -5,7 +5,6 @@ export default {
     methods: {
         async signIn(email, password) {
             if(email === "") {
-                console.log("here");
                 return "Please enter a valid email";
             }
             if(password === "") {
@@ -22,6 +21,9 @@ export default {
             } 
         },
         async signUp(email, password, confirmPassword, userName) {
+            if(userName === "") {
+                return "Please enter a valid user name";
+            }
             if(email === "") {
                 return "Please enter a valid email";
             }
@@ -31,12 +33,9 @@ export default {
             if(password !== confirmPassword) {
                 return "Passwords are not matching";
             }
-            if(userName === "") {
-                return "Please enter a valid user name";
-            }
+            
             try{
             var response = await UserFirebaseManager.methods.signUp(email, password);
-            console.log(response);
                 if(response.user != null) {
                     await UserFirebaseManager.methods.setUserName(userName);
                     return email;
