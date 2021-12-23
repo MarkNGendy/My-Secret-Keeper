@@ -4,22 +4,52 @@ export default {
     name: "user-repository",
     methods: {
         async signIn(email, password) {
-            var response = await UserFirebaseManager.methods.signIn(email, password);
-            console.log(response);
-            return (response.user == null);
-        },
-        async signUp(email, password, confirmPassword) {
-            //console.log(email);
-            if(confirmPassword == null) {
-                return false;
+            if(email === "") {
+                console.log("here");
+                return "Please enter a valid email";
             }
+            if(password === "") {
+                return "Please enter a password";
+            }
+            try {
+                var response = await UserFirebaseManager.methods.signIn(email, password);
+                if(response.user != null) {
+                    return email;
+                }
+                return "You have entered wrong email or password";
+            } catch (e) {
+                return "Please enter a valid email and password";
+            } 
+        },
+        async signUp(email, password, confirmPassword, userName) {
+            if(email === "") {
+                return "Please enter a valid email";
+            }
+            if(password === "") {
+                return "Please enter a password";
+            }
+            if(password !== confirmPassword) {
+                return "Passwords are not matching";
+            }
+            if(userName === "") {
+                return "Please enter a valid user name";
+            }
+            try{
             var response = await UserFirebaseManager.methods.signUp(email, password);
             console.log(response);
-            return (response.user == null);
+                if(response.user != null) {
+                    await UserFirebaseManager.methods.setUserName(userName);
+                    return email;
+                }
+                return "You have entered wrong email or password";
+            } catch(e) {
+                console.log(e);
+                return "Please enter a valid email and password";
+            }
         },
         getCurrentUserId() {
             return UserFirebaseManager.methods.getCurrentUser();
-        }
+        },
     }
 }
 </script>

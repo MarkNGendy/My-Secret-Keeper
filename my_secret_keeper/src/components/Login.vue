@@ -6,8 +6,9 @@
         >
         <v-divider></v-divider>
         <v-card-text>
-          <v-text-field label="Username" prepend-icon="mdi-account-circle" />
+          <v-text-field v-model="email" label="Email" prepend-icon="mdi-account-circle" />
           <v-text-field
+            v-model="password"
             label="Password"
             :type="showPassword ? 'text' : 'password'"
             prepend-icon="mdi-lock"
@@ -21,7 +22,7 @@
         <v-card-actions>
           <v-btn to="/signup" class="v-card__actions" color="info">Sign Up</v-btn>
           <v-spacer></v-spacer>
-          <v-btn to="/home" class="v-card__actions" @click="login()" color="success">Login <v-icon right>mdi-login-variant</v-icon></v-btn
+          <v-btn class="v-card__actions" @click="login()" color="success">Login <v-icon right>mdi-login-variant</v-icon></v-btn
           >
         </v-card-actions>
       </v-card>
@@ -29,16 +30,29 @@
   </div>
 </template>
 <script>
+import UserRepository from "../data/user/repository/user_repository.vue"
 export default {
   name: "Login",
   data() {
     return {
       showPassword: false,
+      email: "",
+      password: ""
     };
   },
   methods:{
-    login(){
-     
+    async login() {
+     console.log(this.email);
+     var response = await UserRepository.methods.signIn(this.email, this.password);
+     console.log(response);
+     if(response === this.email) {
+        this.$router.push({
+          name: "Home",
+        });
+      } else {
+        alert(response);
+        return this.error === "";
+      }
     }
   },
 };
