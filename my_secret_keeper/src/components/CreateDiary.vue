@@ -1,4 +1,5 @@
 <template>
+<div>
   <div>Hello</div>
   <form @submit.prevent="pressed">
     <div class="body">
@@ -9,6 +10,7 @@
     </div>
     <button type="submit">CreateDiary</button>
   </form>
+  </div>
 </template>
 <script>
 import DiaryRepository from "../data/user/repository/diary_repository.vue"
