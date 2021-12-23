@@ -3,6 +3,9 @@ import VueRouter from "vue-router";
 import SignIn from "../views/SignIn.vue";
 import SignUp from "../views/SignUp.vue";
 import Home from "../views/Home.vue";
+import Bin from "../views/Bin.vue";
+import Archive from "../views/Archive.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -12,15 +15,25 @@ const routes = [
     component: SignIn,
   },
   {
+    path: "/signup",
+    name: "signup",
+    component: SignUp,
+
+  },
+  {
     path:"/home",
     name:"Home",
     component:Home,
   },
   {
-    path: "/signup",
-    name: "signup",
-    component: SignUp,
-
+    path:"/bin",
+    name:"Bin",
+    component:Bin,
+  },
+  {
+    path:"/archive",
+    name:"Archive",
+    component:Archive,
   },
 ];
 
