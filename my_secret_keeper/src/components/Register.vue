@@ -5,10 +5,10 @@
             <v-card-title class="blue--text accent-5 my-5 py-3 "   style="font-size:40px ;font-weight:bold" >Sign Up</v-card-title>
             <v-divider></v-divider>
             <v-card-text>
-            <v-text-field v-model="username" label="Username" prepend-icon="mdi-account-circle"/>
-            <v-text-field v-model="email" label="Email" prepend-icon="mdi-mail"/>
-            <v-text-field v-model="password" label="Password" :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" @click:append="showPassword = !showPassword"/> 
-            <v-text-field v-model="confirmPassword" label="Confirm Password" :type="showConfirmPassword ? 'text' : 'password'" prepend-icon="mdi-lock" :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'" @click:append="showConfirmPassword = !showConfirmPassword"/>
+            <v-text-field :rules="email_UsernameRules" v-model="username" label="Username" prepend-icon="mdi-account-circle"/>
+            <v-text-field :rules="email_UsernameRules" hint="example@mail.com" v-model="email" label="Email" prepend-icon="mdi-mail"/>
+            <v-text-field :rules="passwordRules" hint="At least 8 characters" v-model="password" label="Password" :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" @click:append="showPassword = !showPassword"/> 
+            <v-text-field :rules="passwordRules" hint="At least 8 characters" v-model="confirmPassword" label="Confirm Password" :type="showConfirmPassword ? 'text' : 'password'" prepend-icon="mdi-lock" :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'" @click:append="showConfirmPassword = !showConfirmPassword"/>
             </v-card-text>
 
             <v-divider></v-divider>
@@ -33,7 +33,14 @@ export default {
             email: "",
             password: "",
             username: "", 
-            confirmPassword: ""
+            confirmPassword: "",
+            email_UsernameRules:[
+               (v) => !!v || "This field is required"
+            ],
+            passwordRules: [
+              (v) => !!v || "This field is required",
+              (v) => v.length >= 8 || "Minimum length is 8 characters",
+            ],
         }
     },
     methods:{

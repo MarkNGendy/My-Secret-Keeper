@@ -6,8 +6,9 @@
         >
         <v-divider></v-divider>
         <v-card-text>
-          <v-text-field v-model="email" label="Email" prepend-icon="mdi-account-circle" />
+          <v-text-field :rules="Rules" v-model="email" label="Email" prepend-icon="mdi-account-circle" />
           <v-text-field
+           :rules="Rules"
             v-model="password"
             label="Password"
             :type="showPassword ? 'text' : 'password'"
@@ -37,7 +38,10 @@ export default {
     return {
       showPassword: false,
       email: "",
-      password: ""
+      password: "",
+      Rules:[
+               (v) => !!v || "This field is required"
+            ],
     };
   },
   methods:{
