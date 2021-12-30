@@ -1,6 +1,5 @@
 <template>
     <body ref="body"></body>
-    <button @click="retreiveDiary">RetreiveDiary</button>  
 </template>
 <script>
 import { query,where,collection,getFirestore ,getDocs,doc,addDoc,updateDoc,deleteDoc} from "firebase/firestore";
@@ -18,17 +17,17 @@ export default {
                 template_id: ""
             });
         },
-        async updateDiary(doc_id,table_name){
+        async updateDiary(doc_id,body,diary_title){
             console.log(doc_id);
-            await updateDoc(doc(getFirestore(),table_name,doc_id), {
-                body: "body updated",
-                diary_title:"diary updated"
+            await updateDoc(doc(getFirestore(),"Diaries",doc_id), {
+                body: body,
+                diary_title:diary_title
             });
             this.retreiveDiary();
         },
-        async deleteDiary(doc_id,table_name){
+        async deleteDiary(doc_id){
             console.log(doc_id);
-            await deleteDoc(doc(getFirestore(),table_name,doc_id));
+            await deleteDoc(doc(getFirestore(),"Diaries",doc_id));
             this.retreiveDiary();
         },
         async retreiveDiary(){
@@ -58,36 +57,36 @@ export default {
             thead.appendChild(row_1);
             const querySnapshot = await getDocs(query(collection(getFirestore(), "Diaries"), where("user_id", "==",getAuth().currentUser.uid)));
             querySnapshot.forEach((doc) => {
-            let row= document.createElement('tr');
-            let heading_1=document.createElement('td');
-            heading_1.innerHTML =doc.data().date;
-            let heading_2=document.createElement('td');
-            heading_2.innerHTML =doc.data().body;
-            let heading_3=document.createElement('td');
-            heading_3.innerHTML =doc.data().diary_title;
-            let heading_4=document.createElement('td');
-            let update_btn = document.createElement("button");
-            update_btn.innerHTML = "update";
-            update_btn.onclick =()=>this.temp(doc.id,"update","Diaries");
-            heading_4.appendChild(update_btn);
-            let heading_5=document.createElement('td');
-            let delete_btn = document.createElement("button");
-            delete_btn.innerHTML = "delete";
-            delete_btn.onclick =()=>this.temp(doc.id,"delete","Diaries");
-            heading_5.appendChild(delete_btn);
-            row.appendChild(heading_1);
-            row.appendChild(heading_2);
-            row.appendChild(heading_3);
-            row.appendChild(heading_4);
-            row.appendChild(heading_5);
-            tbody.appendChild(row);
+                let row= document.createElement('tr');
+                let heading_1=document.createElement('td');
+                heading_1.innerHTML =doc.data().date;
+                let heading_2=document.createElement('td');
+                heading_2.innerHTML =doc.data().body;
+                let heading_3=document.createElement('td');
+                heading_3.innerHTML =doc.data().diary_title;
+                let heading_4=document.createElement('td');
+                let update_btn = document.createElement("button");
+                update_btn.innerHTML = "update";
+                update_btn.onclick =()=>this.temp(doc.id,"update");
+                heading_4.appendChild(update_btn);
+                let heading_5=document.createElement('td');
+                let delete_btn = document.createElement("button");
+                delete_btn.innerHTML = "delete";
+                delete_btn.onclick =()=>this.temp(doc.id,"delete");
+                heading_5.appendChild(delete_btn);
+                row.appendChild(heading_1);
+                row.appendChild(heading_2);
+                row.appendChild(heading_3);
+                row.appendChild(heading_4);
+                row.appendChild(heading_5);
+                tbody.appendChild(row);
             });
         },
-        async temp(doc_id,state,table_name){
+        async temp(doc_id,state){
             if(state=="update")
-                this.updateDiary(doc_id,table_name);
+                this.updateDiary(doc_id,"body updated","diary_title updated");
             else
-                this.deleteDiary(doc_id,table_name);
+                this.deleteDiary(doc_id);
         },
     }
 }
