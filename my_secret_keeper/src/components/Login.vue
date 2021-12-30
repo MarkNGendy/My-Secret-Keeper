@@ -48,7 +48,6 @@ export default {
     async login() {
      console.log(this.email);
      var response = await UserRepository.methods.signIn(this.email, this.password);
-     console.log(response);
      if(response === this.email) {
         this.$router.push({
           name: "Home",

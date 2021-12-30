@@ -42,7 +42,7 @@
             </v-menu>
           </v-app-bar>
           <div class="text--primary">
-            {{diary.content}}
+            {{diary.body}}
           </div>
         </v-card-text>
         <v-divider></v-divider>
@@ -54,7 +54,7 @@
         </v-card-title>
 
         <v-card-text>
-            {{curDiary.content}}
+            {{curDiary.body}}
         </v-card-text>
 
         <v-divider></v-divider>
@@ -89,24 +89,25 @@
 </template>
 
 <script>
+import DiaryRepository from "../data/diary/repository/diary_repository.vue"
 export default {
   data() {
     return {
         ind:0,
         view: false,
-        diaries:[
-        {title:'D1', i:1,date:'date1', content:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur veniam voluptatem ad hic accusantium mollitia expedita neque delectus quo, dolor fuga optio recusandae culpa maiores, at accusamus deserunt inventore et'},
-        {title:'D2', i:2,date:'date2', content:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur veniam voluptatem ad hic accusantium mollitia expedita neque delectus quo, dolor fuga optio recusandae culpa maiores, at accusamus deserunt inventore et'},
-        {title:'D3', i:3,date:'date3', content:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur veniam voluptatem ad hic accusantium mollitia expedita neque delectus quo, dolor fuga optio recusandae culpa maiores, at accusamus deserunt inventore et'},
-        {title:'D4', i:4,date:'date4', content:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur veniam voluptatem ad hic accusantium mollitia expedita neque delectus quo, dolor fuga optio recusandae culpa maiores, at accusamus deserunt inventore et'}
-      ],
+        diaries:[],
       curDiary:null
-    }
+    };
   },
   methods: {
       setCurrent(i){
           this.curDiary=this.diaries[i];
       }
+  },
+  created: async function() {
+    this.diaries = await DiaryRepository.methods.retrieveDiaries();
+    this.curDiary = this.diaries[0];
+    console.log(this.diaries.length)
   }
 }
 </script>
