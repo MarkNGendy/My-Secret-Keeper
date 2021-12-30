@@ -72,10 +72,12 @@ export default {
       content: "",
       date: null,
       menu: false,
+      dialog: false
     };
   },
   methods: {
     submit() {
+      this.dialog=false;
       console.log(this.title,this.catagory, this.content, this.date);
     },
     methods: {
