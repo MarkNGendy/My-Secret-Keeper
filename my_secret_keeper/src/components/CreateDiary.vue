@@ -65,6 +65,7 @@
 
 <script>
 import format from 'date-fns/format'
+import DiaryRepository from "../data/diary/repository/diary_repository.vue"
 export default {
   data() {
     return {
@@ -76,9 +77,19 @@ export default {
     };
   },
   methods: {
-    submit() {
-      this.dialog=false;
+    async submit() {
       console.log(this.title,this.catagory, this.content, this.date);
+      var response = await DiaryRepository.methods.createDiary(this.title,this.content, this.date);
+      if(response === "Diary Created successfully.") {
+        this.dialog = false;
+        this.title = "";
+        this.content = "";
+        this.date = null;   
+        await DiaryRepository.methods.retrieveDiaries();
+
+      } else {
+        alert(response);
+      }
     },
     methods: {
       allowedDates: (val) => parseInt(val.split("-")[2], 10) % 2 === 0,

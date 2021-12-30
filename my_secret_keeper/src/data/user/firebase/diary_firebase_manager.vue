@@ -56,7 +56,9 @@ export default {
             row_1.appendChild(heading_5);
             thead.appendChild(row_1);
             const querySnapshot = await getDocs(query(collection(getFirestore(), "Diaries"), where("user_id", "==",getAuth().currentUser.uid)));
+            let diaries = [];
             querySnapshot.forEach((doc) => {
+                diaries.push(doc.data());
                 let row= document.createElement('tr');
                 let heading_1=document.createElement('td');
                 heading_1.innerHTML =doc.data().date;
