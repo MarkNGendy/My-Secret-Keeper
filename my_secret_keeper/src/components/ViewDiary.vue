@@ -50,6 +50,7 @@
         </template>
         <v-card>
             <v-card-title class="text-h5 grey lighten-2">
+                {{ diaries[ind-1].title }}
             </v-card-title>
         </v-card>
     </v-dialog>
