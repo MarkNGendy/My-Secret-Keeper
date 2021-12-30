@@ -107,7 +107,7 @@ export default {
   created: async function() {
     this.diaries = await DiaryRepository.methods.retrieveDiaries();
     this.curDiary = this.diaries[0];
-    console.log(this.diaries.length)
+    console.log(this.diaries.length);
   }
-}
+};
 </script>
