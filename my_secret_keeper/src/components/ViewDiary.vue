@@ -7,7 +7,7 @@
          class="mx-auto" 
          v-bind="attrs"
          v-on="on"
-         @click="setCurrent(diary.i-1)">
+         @click="setCurrent(index)">
         <v-card-text>
           <v-app-bar
             flat
@@ -71,7 +71,7 @@
           <v-btn
             color="primary"
             text
-            @click="view = false"
+            @click="deleteDiary"
           >
             Delete
           </v-btn>
@@ -101,13 +101,25 @@ export default {
   },
   methods: {
       setCurrent(i){
+        console.log(i);
+        console.log(this.diaries[i]);
           this.curDiary=this.diaries[i];
+      },
+      async deleteDiary(){
+        var response = await DiaryRepository.methods.deleteDiary(this.curDiary);
+        if(response === "Diary is deleted successfully.") {
+          this.$forceUpdate();
+          this.view = false;
+          await this.created();
+        } else {
+          alert(response);
+        }
       }
   },
   created: async function() {
+    console.log("here");
     this.diaries = await DiaryRepository.methods.retrieveDiaries();
     this.curDiary = this.diaries[0];
-    console.log(this.diaries.length);
   }
 };
 </script>

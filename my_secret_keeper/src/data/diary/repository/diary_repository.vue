@@ -21,8 +21,12 @@ export default {
                 return "Please choose a date for the diary";
             return await DiaryFirebaseManager.methods.updateDiary(id,title, body, date);
         },
-        async deleteDiary(id){
-            return await DiaryFirebaseManager.methods.deleteDiary(id);
+        async deleteDiary(diary) {
+            if(diary.id === "") {
+                return "Diary cannot be deleted";
+            }
+            await DiaryFirebaseManager.methods.deleteDiary(diary.id);
+            return "Diary is deleted successfully.";
         },
         async retrieveDiaries() {
             return await DiaryFirebaseManager.methods.retrieveDiaries();

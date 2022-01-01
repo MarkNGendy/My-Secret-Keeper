@@ -4,6 +4,7 @@
       <v-app-bar-nav-icon @click="drawer = !drawer" class="white--text"></v-app-bar-nav-icon>
       <v-toolbar-title style="font-weight:bold;font-size:25px">My Secret Keeper</v-toolbar-title>
       <v-spacer></v-spacer>
+      <CreateTemplate></CreateTemplate>
       <v-btn to="/" rounded text>Logout<v-icon right>mdi-arrow-right-bold-box-outline</v-icon></v-btn>
     </v-toolbar>
 
@@ -33,6 +34,8 @@
 </template>
 
 <script>
+import CreateTemplate from '../components/CreateTemplate.vue';
+
 export default {
   data(){
     return{
@@ -45,6 +48,9 @@ export default {
     }
   },
   name: "HomeHeader",
+  components: {
+    CreateTemplate
+  },
 };
 </script>
 arrow-right-bold-box-outline
