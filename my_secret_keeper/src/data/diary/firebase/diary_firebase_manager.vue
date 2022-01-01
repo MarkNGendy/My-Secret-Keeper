@@ -37,13 +37,16 @@ export default {
                 return "Diary Deleted successfully."; 
             } catch (error) {
                 return "Invalid Operation";
-            }
+            };
         },
         async retrieveDiaries(){
             const querySnapshot = await getDocs(query(collection(getFirestore(), "Diaries"), where("user_id", "==",getAuth().currentUser.uid)));
             let diaries = [];
             querySnapshot.forEach((doc) => {
-                diaries.push(doc.data());
+                var diary = doc.data();
+                diary.id = doc.id;
+                console.log(diary);
+                diaries.push(diary);
             });
             return diaries;
         },

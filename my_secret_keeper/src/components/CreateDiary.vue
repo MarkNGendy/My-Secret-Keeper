@@ -73,7 +73,8 @@ export default {
       content: "",
       date: null,
       menu: false,
-      dialog: false
+      dialog: false,
+      
     };
   },
   methods: {
@@ -81,17 +82,17 @@ export default {
       console.log(this.title,this.catagory, this.content, this.date);
       var response = await DiaryRepository.methods.createDiary(this.title,this.content, this.date);
       if(response === "Diary Created successfully.") {
+        this.$emit('diaryCreated');
         this.dialog = false;
         this.title = "";
         this.content = "";
-        this.date = null;   
-        await DiaryRepository.methods.retrieveDiaries();
-
+        this.date = null;
+        this.$emit('diaryCreated')
       } else {
         alert(response);
       }
     },
-    methods: {
+  methods: {
       allowedDates: (val) => parseInt(val.split("-")[2], 10) % 2 === 0,
     },
   },
