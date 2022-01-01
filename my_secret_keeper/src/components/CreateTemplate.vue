@@ -12,6 +12,9 @@
                 </v-card-title>
                 <v-card-text>
                     <v-form class="px-3">
+                         <v-text-field v-model="templateName"
+                            label="Template Name"
+                        ></v-text-field>
                          <v-text-field v-model="Questions[0]"
                             label="Question 1"
                         ></v-text-field>
@@ -39,13 +42,14 @@ export default {
     return {
       dialog: false, 
       Questions :[],
+      templateName:"",
     };
   },
    methods: {
       create(){
           console.warn(this.Questions.length)
           for (let i = 0; i < this.Questions.length; i++) {
-              console.warn(this.Questions[i])
+              console.warn(this.templateName)
             }
           
       },
