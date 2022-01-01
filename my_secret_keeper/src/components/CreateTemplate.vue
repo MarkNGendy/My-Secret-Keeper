@@ -36,6 +36,9 @@
 </template>
 
 <script>
+
+import TempleteRepository from "../data/diary/repository/template_repository.vue"
+
 export default {
     name: "CreateTemplate",
     data() {
@@ -46,13 +49,19 @@ export default {
     };
   },
    methods: {
-      create(){
-          console.warn(this.Questions.length)
-          for (let i = 0; i < this.Questions.length; i++) {
-              console.warn(this.templateName)
-            }
-          
-      },
+      async create() {
+      console.log(this.templateName , this.Questions);
+      var response = await TempleteRepository.methods.CreateTemplate(this.templateName , this.Questions);
+      if(response === "Template Created successfully.") {
+        this.$emit('templateCreated');
+        this.dialog = false;
+        this.templateName = "";
+        this.questions = [];
+        this.$emit('templeteCreated')
+      } else {
+        alert(response);
+      }
+    },
     },
 }
 </script>
