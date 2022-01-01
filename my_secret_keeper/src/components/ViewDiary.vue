@@ -30,14 +30,19 @@
               <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
               </template>
-
               <v-list>
-                <v-list-item>
-                  <v-list-item-title>Edit</v-list-item-title>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-title>Delete</v-list-item-title>
-                </v-list-item>
+                  <v-list-item>
+                    <EditDiary :diary="diary"/>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-btn
+                        color="primary"
+                        text
+                        @click="deleteDiary"
+                    >
+                        Delete
+                    </v-btn>
+                  </v-list-item>
               </v-list>
             </v-menu>
           </v-app-bar>
@@ -61,13 +66,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            text
-            @click="view = false"
-          >
-            Edit
-          </v-btn>
+          <EditDiary :diary="curDiary"/>
           <v-btn
             color="primary"
             text
@@ -89,7 +88,8 @@
 </template>
 
 <script>
-import DiaryRepository from "../data/diary/repository/diary_repository.vue"
+import DiaryRepository from "../data/diary/repository/diary_repository.vue";
+import EditDiary from '../components/EditDiary.vue';
 export default {
   data() {
     return {
@@ -120,6 +120,9 @@ export default {
     console.log("here");
     this.diaries = await DiaryRepository.methods.retrieveDiaries();
     this.curDiary = this.diaries[0];
-  }
+  },
+  components: {
+    EditDiary
+  },
 };
 </script>
