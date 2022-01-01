@@ -7,7 +7,7 @@
             text
             v-bind="attrs"
             v-on="on"
-            @click="print"
+            @click="set"
         >
             Edit
         </v-btn>
@@ -15,7 +15,7 @@
 
       <v-card>
         <v-card-title class="text-h5 grey lighten-2">
-          Edit diary -- {{ DiaryID }}
+          Edit diary
         </v-card-title>
         <v-card-text>
           <v-form class="px-3">
@@ -62,23 +62,38 @@
 </template>
 
 <script>
+import Vue from 'vue';
+var Diary = new Vue({
+     data: {
+        body: "",
+        category_id: "",
+        date: "",
+        id: "",
+        template_id: "",
+        title: "",
+        user_id: ""
+     }
+ })
 export default {
     props: {
-   DiaryID: String
+   diary: Diary
  },
   data() {
     return {
       title: "",
       content: "",
-      date: null,
+      date: "",
       menu: false,
       dialog: false,      
     };
   },
   methods: {
-      print(){
+      set(){
           console.log("EDITING");
-          console.log(this.DiaryID);
+          console.log(this.diary);
+          this.title=this.diary.title;
+          this.content= this.diary.body;
+          this.date= this.diary.date;
       }
   }
 };

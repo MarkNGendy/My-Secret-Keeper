@@ -32,7 +32,7 @@
               </template>
               <v-list>
                   <v-list-item>
-                    <EditDiary :DiaryID="diary.id"/>
+                    <EditDiary :diary="diary"/>
                   </v-list-item>
                   <v-list-item>
                     <v-btn
@@ -66,7 +66,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <EditDiary :DiaryID="curDiary.id"/>
+          <EditDiary :diary="curDiary"/>
           <v-btn
             color="primary"
             text
