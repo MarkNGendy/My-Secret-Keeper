@@ -11,7 +11,6 @@
             <v-text-field :rules="passwordRules" hint="At least 8 characters" v-model="confirmPassword" label="Confirm Password" :type="showConfirmPassword ? 'text' : 'password'" prepend-icon="mdi-lock" :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'" @click:append="showConfirmPassword = !showConfirmPassword"/>
             </v-card-text>
 
-                
             <v-card-actions>
             <v-btn to="/" rounded class="v-card__actions" color="success"><v-icon large left>mdi-arrow-left-bold</v-icon></v-btn>
                 <v-spacer></v-spacer>

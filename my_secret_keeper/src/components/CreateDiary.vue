@@ -13,6 +13,16 @@
         >
           <v-icon large class=""> mdi-pencil </v-icon>
         </v-btn>
+        <v-btn
+          class="mx-10 ml-10 mt-4"
+          large
+          dark
+          fab
+          color="cyan"
+          v-on="on"
+        >
+          <v-icon large class=""> mdi-pencil </v-icon>
+        </v-btn>
       </template>
 
       <v-card>
