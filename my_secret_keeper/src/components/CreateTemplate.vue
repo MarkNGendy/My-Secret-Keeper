@@ -15,18 +15,12 @@
                          <v-text-field v-model="templateName"
                             label="Template Name"
                         ></v-text-field>
-                         <v-text-field v-model="Questions[0]"
-                            label="Question 1"
+                         <v-text-field v-model="Questions[l-1]" v-for="l in QuestionsLength" :key="l"
+                            label="Question"
                         ></v-text-field>
-                         <v-text-field v-model="Questions[1]"
-                            label="Question 2"
-                        ></v-text-field>
-                         <v-text-field v-model="Questions[2]"
-                            label="Question 3"
-                        ></v-text-field>
-                         <v-text-field v-model="Questions[3]"
-                            label="Question 4"
-                        ></v-text-field>
+                        <v-divider></v-divider>
+                        <v-btn @click="add" fab small class="info mt-6" style="font-weight:bold"><v-icon>mdi-plus-thick</v-icon></v-btn>
+                       <v-spacer></v-spacer>
                         <v-btn   @click="create" class="success mx-0 mt-6" style="font-weight:bold">Add Template</v-btn>
                     </v-form>
                  </v-card-text>
@@ -46,6 +40,7 @@ export default {
       dialog: false, 
       Questions :[],
       templateName:"",
+      QuestionsLength:1 
     };
   },
    methods: {
@@ -62,6 +57,9 @@ export default {
         alert(response);
       }
     },
+    add(){
+        this.QuestionsLength = this.QuestionsLength + 1 ;
+    }
     },
 }
 </script>

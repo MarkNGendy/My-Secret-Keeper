@@ -70,7 +70,7 @@
         </v-card-title>
         <v-list>
             <v-list-item-group>
-                <v-list-item @click="answer=!answer" v-for="temp in templates" :key="temp.text">
+                <v-list-item  @click="set" v-for="temp in templates" :key="temp.text">
                     <v-list-item-content>
                       <v-list-item-title v-text="temp.text"></v-list-item-title>
                     </v-list-item-content>
@@ -98,16 +98,12 @@
               prepend-icon="mdi-folder"
               :items="items"
             ></v-combobox>
-            <v-list>
-                <v-list-item-group>
-                    <v-list-item  v-for="q in Questions" :key="q.text">
-                        <v-list-item-content>
-                          <v-list-item-title v-text="q.text"></v-list-item-title>
-                          <v-text-field ></v-text-field>
-                        </v-list-item-content>
-                    </v-list-item>
-                </v-list-item-group>
-            </v-list>
+            <v-textarea
+              v-model="content"
+              label="Diary"
+              prepend-icon="mdi-notebook-edit-outline"
+            ></v-textarea>
+            
             <v-row justify="center">
               <v-date-picker
                 v-model="date"
@@ -147,10 +143,7 @@ export default {
         { text: 'Trash' },
       ],
       Questions:[
-         {text: 'Question1'},
-        { text: 'Question2'},
-        { text: 'Question3' },
-        {text : 'Question4'}
+        'How Was Your Day?','What did you do?','Do you love me ?'
       ],
       items:[
         'Programming',
@@ -174,6 +167,13 @@ export default {
       } else {
         alert(response);
       }
+    },
+    set(){
+       for (let i = 0; i < this.Questions.length; i++) {
+          this.content += this.Questions[i] + "\n\n";
+       }   
+      this.answer=!this.answer
+      
     },
   methods: {
       allowedDates: (val) => parseInt(val.split("-")[2], 10) % 2 === 0,
