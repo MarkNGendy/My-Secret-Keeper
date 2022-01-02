@@ -14,7 +14,16 @@
           <v-icon large class=""> mdi-pencil </v-icon>
         </v-btn>
       </template>
+      <v-card>
+        <v-card-title class="text-h5 grey lighten-2">
+          Create new diary
+        </v-card-title>
+        <v-btn flat @click="customDiary = !customDiary" class="success ma-4" style="font-weight:bold">Create Diary from scratch</v-btn>
+        <v-btn flat @click="template=!template" class="info ma-4" style="font-weight:bold">Choose from my Templates</v-btn>
+      </v-card>
+    </v-dialog>
 
+    <v-dialog v-model="customDiary" width="500">
       <v-card>
         <v-card-title class="text-h5 grey lighten-2">
           Create new diary
@@ -26,22 +35,17 @@
               label="Title"
               prepend-icon="mdi-folder"
             ></v-text-field>
-
-            <v-text-field
+            <v-combobox
               v-model="catagory"
               label="Category"
               prepend-icon="mdi-folder"
-            ></v-text-field>
-
-
+              :items="items"
+            ></v-combobox>
             <v-textarea
               v-model="content"
               label="Diary"
               prepend-icon="mdi-notebook-edit-outline"
             ></v-textarea>
-
-            
-
             <v-row justify="center">
               <v-date-picker
                 v-model="date"
@@ -52,9 +56,69 @@
                 @change="menu=false"
               ></v-date-picker>
             </v-row>
-
             <v-spacer></v-spacer>
+            <v-btn flat @click="submit" class="success mx-0 mt-3" style="font-weight:bold">Add Diary</v-btn>
+          </v-form>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
 
+    <v-dialog v-model="template" width="500">
+      <v-card>
+        <v-card-title class="text-h5 grey lighten-2">
+          Choose Custom Template
+        </v-card-title>
+        <v-list>
+            <v-list-item-group>
+                <v-list-item @click="answer=!answer" v-for="temp in templates" :key="temp.text">
+                    <v-list-item-content>
+                      <v-list-item-title v-text="temp.text"></v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+            </v-list-item-group>
+        </v-list>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="answer" width="500">
+      <v-card>
+        <v-card-title class="text-h5 grey lighten-2">
+          Testing
+        </v-card-title>
+         <v-card-text>
+          <v-form class="px-3">
+            <v-text-field
+              v-model="title"
+              label="Title"
+              prepend-icon="mdi-folder"
+            ></v-text-field>
+            <v-combobox
+              v-model="catagory"
+              label="Category"
+              prepend-icon="mdi-folder"
+              :items="items"
+            ></v-combobox>
+            <v-list>
+                <v-list-item-group>
+                    <v-list-item  v-for="q in Questions" :key="q.text">
+                        <v-list-item-content>
+                          <v-list-item-title v-text="q.text"></v-list-item-title>
+                          <v-text-field ></v-text-field>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list-item-group>
+            </v-list>
+            <v-row justify="center">
+              <v-date-picker
+                v-model="date"
+                :allowed-dates="allowedDates"
+                class="mt-4"
+                min="2016-06-15"
+                max="2030-03-20"
+                @change="menu=false"
+              ></v-date-picker>
+            </v-row>
+            <v-spacer></v-spacer>
             <v-btn flat @click="submit" class="success mx-0 mt-3" style="font-weight:bold">Add Diary</v-btn>
           </v-form>
         </v-card-text>
@@ -74,7 +138,26 @@ export default {
       date: null,
       menu: false,
       dialog: false,
-      
+      customDiary:false,
+      template:false,
+      answer:false,
+      templates: [
+        {text: 'Diaries'},
+        { text: 'Archive'},
+        { text: 'Trash' },
+      ],
+      Questions:[
+         {text: 'Question1'},
+        { text: 'Question2'},
+        { text: 'Question3' },
+        {text : 'Question4'}
+      ],
+      items:[
+        'Programming',
+          'Design',
+          'Vue',
+          'Vuetify',
+      ]
     };
   },
   methods: {

@@ -2,7 +2,7 @@
     <div>
         <v-dialog v-model="dialog" width="500">
             <template v-slot:activator="{ on, attrs }">
-                <v-btn rounded text class="mx-5 ml-5" v-bind="attrs" v-on="on">
+                <v-btn rounded text v-bind="attrs" v-on="on">
                 Templates
                 </v-btn>
             </template>
