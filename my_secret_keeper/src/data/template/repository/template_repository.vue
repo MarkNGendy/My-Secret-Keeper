@@ -10,7 +10,9 @@ export default {
                 return "please enter questions"
             return await TempleteFirebaseManager.methods.CreateTemplate(name , Questions);
         },
-
+        async retrieveTemplates() {
+            return await TempleteFirebaseManager.methods.retrieveTemplates();
+        },
     }
 }
 </script>

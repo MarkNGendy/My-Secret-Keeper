@@ -19,7 +19,7 @@
           Create new diary
         </v-card-title>
         <v-btn flat @click="openCreateDiary" class="success ma-4" style="font-weight:bold">Create Diary from scratch</v-btn>
-        <v-btn flat @click="template=!template" class="info ma-4" style="font-weight:bold">Choose from my Templates</v-btn>
+        <v-btn flat @click="fetchTemplate" class="info ma-4" style="font-weight:bold">Choose from my Templates</v-btn>
       </v-card>
     </v-dialog>
 
@@ -70,9 +70,9 @@
         </v-card-title>
         <v-list>
             <v-list-item-group>
-                <v-list-item  @click="set" v-for="temp in templates" :key="temp.text">
+                <v-list-item  @click="set(temp)" v-for="temp in templates" :key="temp.name">
                     <v-list-item-content>
-                      <v-list-item-title v-text="temp.text"></v-list-item-title>
+                      <v-list-item-title v-text="temp.name"></v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list-item-group>
@@ -127,6 +127,7 @@
 import CategoryRepository from "../data/category/repository/category_repository.vue"
 import format from 'date-fns/format'
 import DiaryRepository from "../data/diary/repository/diary_repository.vue"
+import TemplateRepository from "../data/template/repository/template_repository.vue";
 export default {
   data() {
     return {
@@ -140,14 +141,8 @@ export default {
       template:false,
       answer:false,
       categoriesList: [],
-      templates: [
-        {text: 'Diaries'},
-        { text: 'Archive'},
-        { text: 'Trash' },
-      ],
-      Questions:[
-        'How Was Your Day?','What did you do?','Do you love me ?'
-      ],
+      templates: [],
+      Questions:[],
       categories:[],
     };
   },
@@ -173,19 +168,31 @@ export default {
         alert(response);
       }
     },
+    async fetchTemplate() {
+    this.template=!this.template
+    this.templates = await TemplateRepository.methods.retrieveTemplates();
+    //this.curTemplate = this.templates[0];
+    //this.Questions = this.curTemplate.questions;
+  },
     async openCreateDiary() {
+      this.content = ""
       this.categoriesList = await CategoryRepository.methods.retrieveCategories();
       for (let index = 0; index < this.categoriesList.length; index++) {
         this.categories.push(this.categoriesList[index].name);
       }
       this.customDiary = !this.customDiary;
     },
-    set(){
+    set(temp){
+      this.content = ""
+       for(let i=0; i<this.templates.length ; i++){
+         if(this.templates[i].name === temp.name){
+           this.Questions = this.templates[i].questions;
+         }
+       }
        for (let i = 0; i < this.Questions.length; i++) {
           this.content += this.Questions[i] + "\n\n";
        }   
       this.answer=!this.answer
-      
     },
     methods: {
       allowedDates: (val) => parseInt(val.split("-")[2], 10) % 2 === 0,
