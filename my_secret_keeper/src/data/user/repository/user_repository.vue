@@ -46,6 +46,10 @@ export default {
                 return "Please enter a valid email and password";
             }
         },
+        async signOut() {
+            var response = await UserFirebaseManager.methods.signOut();
+            return response;
+        },
         getCurrentUserId() {
             return UserFirebaseManager.methods.getCurrentUser();
         },

@@ -2,6 +2,8 @@
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { getAuth } from 'firebase/auth'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { signOut } from 'firebase/auth'
+
 export default {
     name: 'user_firebase_manager',
     methods: {
@@ -11,6 +13,10 @@ export default {
         },
         async signUp(email, password) {
             var response = await createUserWithEmailAndPassword(getAuth(), email, password);
+            return response;
+        },
+        async signOut() {
+            var response = await signOut(getAuth());
             return response;
         },
         async setUserName(username)  {

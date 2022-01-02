@@ -90,6 +90,7 @@
 <script>
 import DiaryRepository from "../data/diary/repository/diary_repository.vue";
 import EditDiary from '../components/EditDiary.vue';
+import { getAuth } from 'firebase/auth'
 export default {
   data() {
     return {
@@ -119,6 +120,16 @@ export default {
   created: async function() {
     this.diaries = await DiaryRepository.methods.retrieveDiaries();
     this.curDiary = this.diaries[0];
+  },
+  async mounted() {
+    getAuth().onAuthStateChanged(user => {
+        if (user) {
+          DiaryRepository.methods.retrieveDiaries().then((data) => {
+            this.diaries = data; 
+            this.curDiary = this.diaries[0];
+          });
+        }
+    });
   },
   components: {
     EditDiary

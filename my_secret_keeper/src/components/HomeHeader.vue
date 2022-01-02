@@ -6,7 +6,7 @@
       <v-spacer></v-spacer>
       <CreateCategory></CreateCategory>
       <CreateTemplate></CreateTemplate>
-      <v-btn to="/" rounded text>Logout<v-icon right>mdi-arrow-right-bold-box-outline</v-icon></v-btn>
+      <v-btn @click="logout" rounded text>Logout<v-icon right>mdi-arrow-right-bold-box-outline</v-icon></v-btn>
     </v-toolbar>
 
     <v-navigation-drawer app v-model="drawer" class="cyan lighten-4">
@@ -15,7 +15,7 @@
           <v-avatar size="100">
             <img class="text-lg-center" src="/avatar.png">
           </v-avatar>
-          <p class="black--text subheading mt-1">Dummy user</p>
+          <p class="black--text subheading mt-1">{{ userName }}</p>
         </v-flex>
       </v-layout>
      <v-list>
@@ -37,16 +37,28 @@
 <script>
 import CreateTemplate from '../components/CreateTemplate.vue';
 import CreateCategory from '../components/CreateCategory.vue';
+import UserRepository from "../data/user/repository/user_repository.vue"
+import { getAuth } from 'firebase/auth'
 
 export default {
   data(){
     return{
+      userName : getAuth().currentUser.displayName,
       drawer:false,
        links: [
         { icon: 'mdi-note', text: 'Diaries', route: '/home' },
         { icon: 'mdi-archive', text: 'Archive', route: '/archive' },
         { icon: 'mdi-delete', text: 'Trash', route: '/bin' },
       ]
+    }
+  },
+  methods: {
+    async logout() {
+      console.log(this.userName)
+      await UserRepository.methods.signOut();
+      this.$router.push({
+          name: "signin",
+        });
     }
   },
   name: "HomeHeader",
