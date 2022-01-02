@@ -53,7 +53,7 @@
 
             <v-spacer></v-spacer>
 
-            <v-btn flat @click="submit" class="success mx-0 mt-3" style="font-weight:bold">Save</v-btn>
+            <v-btn flat @click="updateDiary" class="success mx-0 mt-3" style="font-weight:bold">Save</v-btn>
           </v-form>
         </v-card-text>
       </v-card>
@@ -63,6 +63,7 @@
 
 <script>
 import Vue from 'vue';
+import DiaryRepository from "../data/diary/repository/diary_repository.vue";
 var Diary = new Vue({
      data: {
         body: "",
@@ -83,6 +84,7 @@ export default {
       title: "",
       content: "",
       date: "",
+      id: "",
       menu: false,
       dialog: false,      
     };
@@ -94,6 +96,23 @@ export default {
           this.title=this.diary.title;
           this.content= this.diary.body;
           this.date= this.diary.date;
+          this.id = this.diary.id;
+          console.log(this.date);
+      },
+      async updateDiary(){
+        console.log("here");
+        console.log(this.title);
+        console.log(this.id);
+        console.log(this.content);
+        console.log(this.date);
+
+        var response = await DiaryRepository.methods.updateDiary(this.id, this.title, this.content, this.date);
+        if(response === "Diary Updated successfully.") {
+          this.$forceUpdate();
+          this.dialog = false;
+        } else {
+          alert(response);
+        }
       }
   }
 };

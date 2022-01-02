@@ -4,14 +4,14 @@ import { getAuth} from 'firebase/auth'
 export default {
     name: 'diary_firebase_manager',
     methods: {
-        async createDiary(title, body, date){
+        async createDiary(title, body, date, categoryId){
             try {
                 await addDoc(collection(getFirestore(), "Diaries"), {
                     date: date,
                     body: body,
                     title:title,
                     user_id:getAuth().currentUser.uid,
-                    category_id:"",
+                    category_id:categoryId,
                     template_id:""
                 });
                 return "Diary Created successfully.";  
@@ -19,12 +19,12 @@ export default {
                 return "Invalid Operation"
             }
         },
-        async updateDiary(id,title, body, date){
+        async updateDiary(id, title, body, date){
             try {
-                await updateDoc(doc(getFirestore(),"Diaries",id), {
+                await updateDoc(doc(getFirestore(), "Diaries", id), {
                     date: date,
                     body: body,
-                    title:title
+                    title: title
                 });
                 return "Diary Updated successfully."; 
             } catch (error) {
@@ -34,7 +34,7 @@ export default {
         async deleteDiary(doc_id){
             try {
                 await deleteDoc(doc(getFirestore(),"Diaries",doc_id));
-                return "Diary Deleted successfully."; 
+                return "Diary is deleted successfully."; 
             } catch (error) {
                 return "Invalid Operation";
             };

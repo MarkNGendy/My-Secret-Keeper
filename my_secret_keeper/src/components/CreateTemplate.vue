@@ -31,7 +31,7 @@
 
 <script>
 
-import TempleteRepository from "../data/diary/repository/template_repository.vue"
+import TempleteRepository from "../data/template/repository/template_repository.vue"
 
 export default {
     name: "CreateTemplate",

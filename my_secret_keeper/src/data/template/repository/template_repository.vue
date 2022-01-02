@@ -1,5 +1,5 @@
 <script>
-import TempleteFirebaseManager from '../../diary/firebase/template_firebase_manager.vue'
+import TempleteFirebaseManager from '../../template/firebase/template_firebase_manager.vue'
 export default {
     name: "template-repository",
     methods: {

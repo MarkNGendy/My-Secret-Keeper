@@ -18,7 +18,7 @@
         <v-card-title class="text-h5 grey lighten-2">
           Create new diary
         </v-card-title>
-        <v-btn flat @click="customDiary = !customDiary" class="success ma-4" style="font-weight:bold">Create Diary from scratch</v-btn>
+        <v-btn flat @click="openCreateDiary" class="success ma-4" style="font-weight:bold">Create Diary from scratch</v-btn>
         <v-btn flat @click="template=!template" class="info ma-4" style="font-weight:bold">Choose from my Templates</v-btn>
       </v-card>
     </v-dialog>
@@ -36,10 +36,10 @@
               prepend-icon="mdi-folder"
             ></v-text-field>
             <v-combobox
-              v-model="catagory"
+              v-model="category"
               label="Category"
               prepend-icon="mdi-folder"
-              :items="items"
+              :items="categories"
             ></v-combobox>
             <v-textarea
               v-model="content"
@@ -93,10 +93,10 @@
               prepend-icon="mdi-folder"
             ></v-text-field>
             <v-combobox
-              v-model="catagory"
+              v-model="category"
               label="Category"
               prepend-icon="mdi-folder"
-              :items="items"
+              :items="categories"
             ></v-combobox>
             <v-textarea
               v-model="content"
@@ -124,6 +124,7 @@
 </template>
 
 <script>
+import CategoryRepository from "../data/category/repository/category_repository.vue"
 import format from 'date-fns/format'
 import DiaryRepository from "../data/diary/repository/diary_repository.vue"
 export default {
@@ -135,8 +136,10 @@ export default {
       menu: false,
       dialog: false,
       customDiary:false,
+      category:"",
       template:false,
       answer:false,
+      categoriesList: [],
       templates: [
         {text: 'Diaries'},
         { text: 'Archive'},
@@ -145,28 +148,37 @@ export default {
       Questions:[
         'How Was Your Day?','What did you do?','Do you love me ?'
       ],
-      items:[
-        'Programming',
-          'Design',
-          'Vue',
-          'Vuetify',
-      ]
+      categories:[],
     };
   },
   methods: {
     async submit() {
-      console.log(this.title,this.catagory, this.content, this.date);
-      var response = await DiaryRepository.methods.createDiary(this.title,this.content, this.date);
+      console.log(this.title,this.category, this.content, this.date);
+      var categoryId = this.categoriesList[this.categories.indexOf(this.category)].id;
+      console.log(categoryId);
+      var response = await DiaryRepository.methods.createDiary(this.title,this.content, this.date, categoryId);
       if(response === "Diary Created successfully.") {
         this.$emit('diaryCreated');
         this.dialog = false;
+        this.customDiary=false;
+        this.template=false;
+        this.answer= false;
         this.title = "";
+        this.category = "";
         this.content = "";
         this.date = null;
+
         this.$emit('diaryCreated')
       } else {
         alert(response);
       }
+    },
+    async openCreateDiary() {
+      this.categoriesList = await CategoryRepository.methods.retrieveCategories();
+      for (let index = 0; index < this.categoriesList.length; index++) {
+        this.categories.push(this.categoriesList[index].name);
+      }
+      this.customDiary = !this.customDiary;
     },
     set(){
        for (let i = 0; i < this.Questions.length; i++) {
@@ -175,7 +187,7 @@ export default {
       this.answer=!this.answer
       
     },
-  methods: {
+    methods: {
       allowedDates: (val) => parseInt(val.split("-")[2], 10) % 2 === 0,
     },
   },

@@ -3,24 +3,20 @@ import CategoryFirebaseManager from '../firebase/category_firebase_manager.vue'
 export default {
     name: "category-repository",
     methods: {
-        async createCategory(name,icon){
+        async createCategory(name){
             if(name === "") 
                 return "Please enter name for category";
-            if(icon === "") 
-                return "Please enter icon for category";
-            return await CategoryFirebaseManager.methods.createCategory(name,icon);
+            return await CategoryFirebaseManager.methods.createCategory(name);
         },
-        async updateCategory(id,name,icon){
+        async updateCategory(id,name){
             if(name === "") 
                 return "Please enter name for category";
-            if(icon === "") 
-                return "Please enter icon for category";
-            return await CategoryFirebaseManager.methods.updateCategory(id,name,icon);
+            return await CategoryFirebaseManager.methods.updateCategory(id,name);
         },
         async deleteCategory(id){
             return await CategoryFirebaseManager.methods.deleteCategory(id);
         },
-        async retrieveDiaries() {
+        async retrieveCategories() {
             return await CategoryFirebaseManager.methods.retreiveCategories();
         }
     }

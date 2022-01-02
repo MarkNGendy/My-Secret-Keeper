@@ -26,7 +26,7 @@
 </template>
 
 <script>
-
+import CategoryRepository from "../data/category/repository/category_repository.vue"
 export default {
     name: "CreateCategory",
     data() {
@@ -38,6 +38,13 @@ export default {
    methods: {
       async create() {
       console.log(this.categoryName);
+      var response = await CategoryRepository.methods.createCategory(this.categoryName);
+      if(response === "Category Created successfully.") {
+          this.dialog = false;
+
+      } else {
+          alert(response);
+      }
     },
     },
 }
