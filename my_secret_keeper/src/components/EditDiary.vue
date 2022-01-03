@@ -97,19 +97,12 @@ export default {
           this.content= this.diary.body;
           this.date= this.diary.date;
           this.id = this.diary.id;
-          console.log(this.date);
       },
       async updateDiary(){
-        console.log("here");
-        console.log(this.title);
-        console.log(this.id);
-        console.log(this.content);
-        console.log(this.date);
-
         var response = await DiaryRepository.methods.updateDiary(this.id, this.title, this.content, this.date);
         if(response === "Diary Updated successfully.") {
-          this.$forceUpdate();
           this.dialog = false;
+          this.$router.go();
         } else {
           alert(response);
         }

@@ -153,7 +153,6 @@ export default {
       console.log(categoryId);
       var response = await DiaryRepository.methods.createDiary(this.title,this.content, this.date, categoryId);
       if(response === "Diary Created successfully.") {
-        this.$emit('diaryCreated');
         this.dialog = false;
         this.customDiary=false;
         this.template=false;
@@ -162,8 +161,7 @@ export default {
         this.category = "";
         this.content = "";
         this.date = null;
-
-        this.$emit('diaryCreated')
+        this.$router.go();
       } else {
         alert(response);
       }

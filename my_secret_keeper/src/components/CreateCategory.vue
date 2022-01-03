@@ -40,8 +40,8 @@ export default {
       console.log(this.categoryName);
       var response = await CategoryRepository.methods.createCategory(this.categoryName);
       if(response === "Category Created successfully.") {
-          this.dialog = false;
-
+        this.dialog = false;
+        this.$router.go();
       } else {
           alert(response);
       }

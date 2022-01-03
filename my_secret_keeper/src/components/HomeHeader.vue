@@ -61,6 +61,13 @@ export default {
         });
     }
   },
+  async mounted() {
+    getAuth().onAuthStateChanged(user => {
+        if (user) {
+          this.userName = getAuth().currentUser.displayName;
+        }
+    });
+  },
   name: "HomeHeader",
   components: {
     CreateTemplate,

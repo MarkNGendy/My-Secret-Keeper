@@ -48,11 +48,10 @@ export default {
       console.log(this.templateName , this.Questions);
       var response = await TempleteRepository.methods.CreateTemplate(this.templateName , this.Questions);
       if(response === "Template Created successfully.") {
-        this.$emit('templateCreated');
         this.dialog = false;
         this.templateName = "";
         this.questions = [];
-        this.$emit('templeteCreated')
+        this.$router.go();
       } else {
         alert(response);
       }
