@@ -29,12 +29,6 @@ export default {
   data(){
     return{
       userName : getAuth().currentUser.displayName,
-      drawer:false,
-       links: [
-        { icon: 'mdi-note', text: 'Diaries', route: '/home' },
-        { icon: 'mdi-folder', text: 'My Templates', route: '/templates' },
-        { icon: 'mdi-folder', text: 'My Categories', route: '/categories' },
-      ]
     }
   },
   methods: {
