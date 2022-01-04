@@ -14,10 +14,10 @@ test("update category with empty name",
 
 test("update category with empty id", async () => {
   const value = await CategoryRepository.methods.updateCategory("", "Hello");
-  expect(value).toEqual("Cannot update the desired diary");
+  expect(value).toEqual("Cannot update the desired category");
 });
 
 test("delete category with empty id", async () => {
   const value = await CategoryRepository.methods.deleteCategory("");
-  expect(value).toEqual("Cannot delete the desired diary");
+  expect(value).toEqual("Cannot delete the desired category");
 });

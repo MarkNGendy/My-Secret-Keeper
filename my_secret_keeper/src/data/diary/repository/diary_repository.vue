@@ -21,10 +21,14 @@ export default {
                 return "Please choose a date for the diary";
             return await DiaryFirebaseManager.methods.updateDiary(id,title, body, date);
         },
-        async deleteDiary(diary) {
-            if(diary.id === "") {
-                return "Diary cannot be updated";
+        async deleteDiary(diary,title,body, date) {
+            if(title === "") {
+                return "Diary cannot be deleted";
             }
+            if(body === "") 
+                 return "Diary cannot be deleted";
+            if(date === null)
+                return "Diary cannot be deleted";
             var response = await DiaryFirebaseManager.methods.deleteDiary(diary.id);
             return response;
         },

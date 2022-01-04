@@ -30,6 +30,9 @@ export default {
             if(password === "") {
                 return "Please enter a password";
             }
+            if(confirmPassword === "") {
+                return "Please enter a confrim password";
+            }
             if(password !== confirmPassword) {
                 return "Passwords are not matching";
             }

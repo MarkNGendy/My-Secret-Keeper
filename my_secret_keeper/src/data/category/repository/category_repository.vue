@@ -10,14 +10,14 @@ export default {
         },
         async updateCategory(id,name){
             if(id === "") 
-                return "Cannot update the desired diary";
+                return "Cannot update the desired category";
             if(name === "") 
                 return "Please enter name for category";
             return await CategoryFirebaseManager.methods.updateCategory(id,name);
         },
         async deleteCategory(id){
             if(id === "") {
-                return "Cannot delete the desired diary";
+                return "Cannot delete the desired category";
             }
             return await CategoryFirebaseManager.methods.deleteCategory(id);
         },

@@ -26,7 +26,10 @@ test("sign up with empty password", async () => {
   const value = await UserRepository.methods.signUp("test@gmail.com", "", "123456", "Mark");
   expect(value).toEqual("Please enter a password");
 });
-
+test("sign up with empty confrim password", async () => {
+  const value = await UserRepository.methods.signUp("test@gmail.com", "123456", "", "Mark");
+  expect(value).toEqual("Please enter a confrim password");
+});
 test("sign up non matching passwords", async () => {
   const value = await UserRepository.methods.signUp(
     "mark@gmail.com",

@@ -35,3 +35,22 @@ test("update diary with empty date",
         expect(value).toEqual("Please choose a date for the diary");
     }
 );
+test("delete diary with empty title", 
+async () => {
+    const value = await DiaryRepository.methods.deleteDiary("2",null,"Body","2021-12-31");
+    expect(value).toEqual("Invalid Operation");
+}
+);
+test("delete diary with empty body", 
+async () => {
+    const value = await DiaryRepository.methods.deleteDiary("1","Title","","2021-12-31");
+    expect(value).toEqual("Diary cannot be deleted");
+}
+);
+test("delete diary with empty date", 
+async () => {
+    const value = await DiaryRepository.methods.deleteDiary("1","Title","Body",null);
+    expect(value).toEqual("Diary cannot be deleted");
+}
+);
+
