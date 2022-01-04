@@ -3,8 +3,8 @@ import VueRouter from "vue-router";
 import SignIn from "../views/SignIn.vue";
 import SignUp from "../views/SignUp.vue";
 import Home from "../views/Home.vue";
-import Bin from "../views/Bin.vue";
-import Archive from "../views/Archive.vue";
+import Categories from "../views/Categories.vue";
+import Templates from "../views/Templates.vue";
 
 Vue.use(VueRouter);
 
@@ -27,13 +27,13 @@ const routes = [
   },
   {
     path:"/categories",
-    name:"Bin",
-    component:Bin,
+    name:"Categories",
+    component:Categories,
   },
   {
     path:"/templates",
-    name:"Archive",
-    component:Archive,
+    name:"Template",
+    component:Templates,
   },
 ];
 

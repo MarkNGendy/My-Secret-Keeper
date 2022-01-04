@@ -102,8 +102,6 @@ export default {
   },
   methods: {
       setCurrent(i){
-        console.log(i);
-        console.log(this.diaries[i]);
         this.curDiary=this.diaries[i];
       },
       async deleteDiary(){

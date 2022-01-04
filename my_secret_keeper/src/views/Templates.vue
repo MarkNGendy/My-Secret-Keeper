@@ -13,7 +13,7 @@ import HomeHeader from "../components/HomeHeader.vue";
 import ViewTemplate from '../components/ViewTemplate.vue';
 
 export default {
-  name: "Arch",
+  name: "Templates",
    data(){
     return{
       viewTemplateKey: 0,

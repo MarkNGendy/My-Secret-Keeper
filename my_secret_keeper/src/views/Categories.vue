@@ -14,7 +14,7 @@ import HomeHeader from "../components/HomeHeader.vue";
 import ViewCategory from '../components/ViewCategory.vue';
 
 export default {
-  name: "Bin",
+  name: "Categories",
    data(){
     return{
       viewCategoryKey: 0,
