@@ -83,7 +83,7 @@
     <v-dialog v-model="answer" width="500">
       <v-card>
         <v-card-title class="text-h5 grey lighten-2">
-          Testing
+          Create Diary From Template
         </v-card-title>
          <v-card-text>
           <v-form class="px-3">
@@ -149,7 +149,13 @@ export default {
   methods: {
     async submit() {
       console.log(this.title,this.category, this.content, this.date);
-      var categoryId = this.categoriesList[this.categories.indexOf(this.category)].id;
+      var index = this.categories.indexOf(this.category);
+      var categoryId;
+      if(index != -1) {
+        categoryId = this.categoriesList[index].id;
+      } else {
+        categoryId = 0;
+      }
       console.log(categoryId);
       var response = await DiaryRepository.methods.createDiary(this.title,this.content, this.date, categoryId);
       if(response === "Diary Created successfully.") {
