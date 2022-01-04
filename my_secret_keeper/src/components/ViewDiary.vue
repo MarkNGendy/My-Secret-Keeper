@@ -107,7 +107,7 @@ export default {
         this.curDiary=this.diaries[i];
       },
       async deleteDiary(){
-        var response = await DiaryRepository.methods.deleteDiary(this.curDiary);
+        var response = await DiaryRepository.methods.deleteDiary(this.curDiary, this.curDiary.title, this.curDiary.body, this.curDiary.date);
         if(response === "Diary is deleted successfully.") {
           this.view = false;
           this.diaries = await DiaryRepository.methods.retrieveDiaries();
