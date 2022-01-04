@@ -47,8 +47,8 @@ export default {
       drawer:false,
        links: [
         { icon: 'mdi-note', text: 'Diaries', route: '/home' },
-        { icon: 'mdi-archive', text: 'Archive', route: '/archive' },
-        { icon: 'mdi-delete', text: 'Trash', route: '/bin' },
+        { icon: 'mdi-folder', text: 'My Templates', route: '/archive' },
+        { icon: 'mdi-folder', text: 'My Categories', route: '/bin' },
       ]
     }
   },
