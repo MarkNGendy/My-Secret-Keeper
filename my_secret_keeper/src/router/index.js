@@ -26,12 +26,12 @@ const routes = [
     component:Home,
   },
   {
-    path:"/bin",
+    path:"/categories",
     name:"Bin",
     component:Bin,
   },
   {
-    path:"/archive",
+    path:"/templates",
     name:"Archive",
     component:Archive,
   },

@@ -3,7 +3,7 @@
         <v-dialog v-model="dialog" width="500">
             <template v-slot:activator="{ on, attrs }">
                 <v-btn rounded text v-bind="attrs" v-on="on">
-                Templates
+                Create Template
                 </v-btn>
             </template>
             <v-card>

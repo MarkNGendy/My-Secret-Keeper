@@ -63,6 +63,7 @@
 
 <script>
 import TemplateRepository from "../data/template/repository/template_repository.vue";
+import { getAuth } from 'firebase/auth'
 
 export default {
   data() {
@@ -81,7 +82,16 @@ export default {
        //TO DOOOOOOOOOOOOOOO
       },
   },
-  
+  async mounted() {
+    getAuth().onAuthStateChanged(user => {
+        if (user) {
+          TemplateRepository.methods.retrieveTemplates().then((data) => {
+            this.templates = data; 
+            this.curTemplate = this.templates[0];
+          });
+        }
+    });
+  },
   created: async function() {
      this.templates = await TemplateRepository.methods.retrieveTemplates();
      this.curTemplate=this.templates[0];

@@ -47,14 +47,14 @@ export default {
       drawer:false,
        links: [
         { icon: 'mdi-note', text: 'Diaries', route: '/home' },
-        { icon: 'mdi-folder', text: 'My Templates', route: '/archive' },
-        { icon: 'mdi-folder', text: 'My Categories', route: '/bin' },
+        { icon: 'mdi-folder', text: 'My Templates', route: '/templates' },
+        { icon: 'mdi-folder', text: 'My Categories', route: '/categories' },
       ]
     }
   },
   methods: {
     async logout() {
-      console.log(this.userName)
+      console.log(this.userName);
       await UserRepository.methods.signOut();
       this.$router.push({
           name: "signin",
@@ -65,6 +65,12 @@ export default {
     getAuth().onAuthStateChanged(user => {
         if (user) {
           this.userName = getAuth().currentUser.displayName;
+          this.drawer = false;
+          this.links = [
+        { icon: 'mdi-note', text: 'Diaries', route: '/home' },
+        { icon: 'mdi-folder', text: 'My Templates', route: '/templates' },
+        { icon: 'mdi-folder', text: 'My Categories', route: '/categories' },
+      ];
         }
     });
   },

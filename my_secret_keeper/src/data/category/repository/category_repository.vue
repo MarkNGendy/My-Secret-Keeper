@@ -9,11 +9,16 @@ export default {
             return await CategoryFirebaseManager.methods.createCategory(name);
         },
         async updateCategory(id,name){
+            if(id === "") 
+                return "Cannot update the desired diary";
             if(name === "") 
                 return "Please enter name for category";
             return await CategoryFirebaseManager.methods.updateCategory(id,name);
         },
         async deleteCategory(id){
+            if(id === "") {
+                return "Cannot delete the desired diary";
+            }
             return await CategoryFirebaseManager.methods.deleteCategory(id);
         },
         async retrieveCategories() {

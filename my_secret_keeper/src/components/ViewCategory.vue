@@ -60,6 +60,7 @@
 
 <script>
 import CategoryRepository from "../data/category/repository/category_repository.vue"
+import { getAuth } from 'firebase/auth'
 
 export default {
   data() {
@@ -78,7 +79,16 @@ export default {
          //TO DOOOOOOOOOOOOOOO
       },
   },
-  
+  async mounted() {
+    getAuth().onAuthStateChanged(user => {
+        if (user) {
+          CategoryRepository.methods.retrieveCategories().then((data) => {
+            this.categories = data; 
+            this.curCategory = this.categories[0];
+          });
+        }
+    });
+  },
   created: async function() {
     this.categories=await CategoryRepository.methods.retrieveCategories();
     this.curCategory=this.categories[0];
