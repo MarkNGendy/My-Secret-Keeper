@@ -175,8 +175,11 @@ export default {
     async fetchTemplate() {
     this.template=!this.template
     this.templates = await TemplateRepository.methods.retrieveTemplates();
-    //this.curTemplate = this.templates[0];
-    //this.Questions = this.curTemplate.questions;
+    this.content = ""
+      this.categoriesList = await CategoryRepository.methods.retrieveCategories();
+      for (let index = 0; index < this.categoriesList.length; index++) {
+        this.categories.push(this.categoriesList[index].name);
+      }
   },
     async openCreateDiary() {
       this.content = ""
