@@ -50,6 +50,30 @@ export default {
             });
             return diaries;
         },
+        encrypt(data){
+            var encrypted = "";
+            const it = data[Symbol.iterator]();
+            let n = it.next();
+            while(!n.done){
+                var x = (n.value.charCodeAt(0)+55) % 65536  ;
+                var c = String.fromCharCode(x);
+                encrypted+=c;
+                n=it.next();
+            }
+            return encrypted;
+        },
+        decrypt(encrypted){
+            var data="";
+            const it = encrypted[Symbol.iterator]();
+            let n = it.next();
+            while(!n.done){
+                var x = (n.value.charCodeAt(0)-55) % 65536  ;
+                var c = String.fromCharCode(x);
+                data+=c;
+                n=it.next();
+            }
+            return data;
+        }
     }
 }
 </script>
