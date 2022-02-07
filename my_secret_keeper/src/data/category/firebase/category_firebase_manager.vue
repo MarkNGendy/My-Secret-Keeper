@@ -29,7 +29,7 @@ export default {
         async deleteCategory(id){
             try {
                 await deleteDoc(doc(getFirestore(),"Categories",id));
-                return "Category Deleted successfully.";
+                return "Category is deleted successfully.";
             } catch (error) {
                 return "Invalid operation"
             }

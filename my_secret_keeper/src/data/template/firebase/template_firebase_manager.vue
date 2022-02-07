@@ -1,5 +1,5 @@
 <script>
-import { collection,getFirestore ,addDoc , query , where , getDocs} from "firebase/firestore";
+import { collection,getFirestore ,addDoc , query , where ,doc, getDocs,deleteDoc} from "firebase/firestore";
 import { getAuth} from 'firebase/auth'
 export default {
     name: 'template_firebase_manager',
@@ -27,6 +27,14 @@ export default {
                 templates.push(template);
             });
             return templates;
+        },
+        async deleteTemplate(doc_id){
+            try {
+                await deleteDoc(doc(getFirestore(),"Templates",doc_id));
+                return "Template is deleted successfully."; 
+            } catch (error) {
+                return "Invalid Operation";
+            };
         },
     }
 }

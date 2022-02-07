@@ -26,6 +26,7 @@
               icon
                v-bind="attrs"
                v-on="on"
+               @click="setCurrent(index)"
             >
               <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
@@ -79,7 +80,14 @@ export default {
         this.curTemplate=this.templates[i];
       },
            async deleteTemplate(){
-       //TO DOOOOOOOOOOOOOOO
+        var response = await TemplateRepository.methods.deleteTemplate(this.curTemplate.id);
+        if(response === "Template is deleted successfully.") {
+          this.view = false;
+          this.templates = await TemplateRepository.methods.retrieveTemplates();
+          this.curTemplate = this.templates[0];
+        } else {
+          alert(response);
+        }
       },
   },
   async mounted() {

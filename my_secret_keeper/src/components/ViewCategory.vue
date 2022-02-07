@@ -26,6 +26,7 @@
               icon
                v-bind="attrs"
                v-on="on"
+              @click="setCurrent(index)"
             >
               <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
@@ -75,8 +76,15 @@ export default {
       setCurrent(i){
         this.curCategory=this.categories[i];
       },
-           async deleteCategory(){
-         //TO DOOOOOOOOOOOOOOO
+      async deleteCategory(){
+        var response = await CategoryRepository.methods.deleteCategory(this.curCategory.id);
+        if(response === "Category is deleted successfully.") {
+          this.view = false;
+          this.categories = await CategoryRepository.methods.retrieveCategories();
+          this.curCategory = this.categories[0];
+        } else {
+          alert(response);
+        }
       },
   },
   async mounted() {

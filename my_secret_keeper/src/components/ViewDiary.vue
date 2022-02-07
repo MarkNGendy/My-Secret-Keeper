@@ -26,6 +26,7 @@
               icon
                v-bind="attrs"
                v-on="on"
+               @click="setCurrent(index)"
             >
               <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
