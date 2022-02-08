@@ -46,7 +46,22 @@ export default {
                 var diary = doc.data();
                 diary.id = doc.id;
                 diaries.push(diary);
-                console.log(diary.title);
+            });
+            for(let i=0; i<diaries.length; ++i){
+                var ntitle = this.decrypt(diaries[i].title);
+                var nbody = this.decrypt(diaries[i].body);
+                diaries[i].title=ntitle;
+                diaries[i].body=nbody;
+            }
+            return diaries;
+        },
+        async retrieveDiariesByCategory(id){
+            const querySnapshot = await getDocs(query(collection(getFirestore(), "Diaries"), where("category_id", "==",id)));
+            let diaries = [];
+            querySnapshot.forEach((doc) => {
+                var diary = doc.data();
+                diary.id = doc.id;
+                diaries.push(diary);
             });
             for(let i=0; i<diaries.length; ++i){
                 var ntitle = this.decrypt(diaries[i].title);
@@ -60,7 +75,7 @@ export default {
             let diaries=this.retrieveDiaries();
             let target=[]
             for(let i=0;i<diaries.length;i++){
-                if(diaries[i].title==title){
+                if(diaries[i].title===title){
                     target.push(diaries[i])
                 }
                    

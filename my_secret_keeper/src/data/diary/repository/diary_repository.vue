@@ -32,11 +32,23 @@ export default {
             var response = await DiaryFirebaseManager.methods.deleteDiary(diary.id);
             return response;
         },
-        async retrieveDiaries() {
+        async retrieveDiaries() { 
             return await DiaryFirebaseManager.methods.retrieveDiaries();
         },
+        async retrieveDiariesByCategory(id) {
+            return await DiaryFirebaseManager.methods.retrieveDiariesByCategory(id);
+        },
+
         async searchDiaries(title) {
             return await DiaryFirebaseManager.methods.searchDiaries(title);
+        },
+        sortAscending(diaries) {
+            diaries.sort((diary1, diary2) => new Date(diary2.date) - new Date(diary1.date));
+            return diaries;
+        },
+        sortDescending(diaries) {
+            diaries.sort((diary1, diary2) => new Date(diary1.date) - new Date(diary2.date));
+            return diaries;
         }
     }
 }
