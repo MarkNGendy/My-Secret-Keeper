@@ -42,11 +42,11 @@ export default {
         async searchDiaries(title) {
             return await DiaryFirebaseManager.methods.searchDiaries(title);
         },
-        sortAscending(diaries) {
+        sortDescending(diaries) {
             diaries.sort((diary1, diary2) => new Date(diary2.date) - new Date(diary1.date));
             return diaries;
         },
-        sortDescending(diaries) {
+        sortAscending(diaries) {
             diaries.sort((diary1, diary2) => new Date(diary1.date) - new Date(diary2.date));
             return diaries;
         }
