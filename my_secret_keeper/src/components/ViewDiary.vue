@@ -1,21 +1,40 @@
 <template>
 <div>
-    <div >
-      <v-combobox
-              class="mb-4"
+  <v-form>
+    <v-container>
+      <v-row>
+        <v-col cols="12" md="3">
+          <v-combobox
               v-model="category"
-              label="Category"
+              label="Search By Category"
               prepend-icon="mdi-folder"
               :items="categories"
-      ></v-combobox>
-      <div class="mb-4">
-        <v-btn class="mr-4" dark fab color="cyan" @click="searchByCategory" >
-          <v-icon large > mdi-magnify </v-icon>
+          ></v-combobox>
+        </v-col>
+         <v-col>
+          <v-btn small class="mt-4" dark fab color="cyan" @click="searchByCategory" >
+          <v-icon medium > mdi-magnify </v-icon>
           </v-btn>
-          <v-btn class="mr-4" dark fab color="cyan" @click="Clear"
+        </v-col>
+        <v-col cols="12" md="3">
+          <v-text-field
+            v-model="title"
+            label="Search By Title"
+          ></v-text-field>
+        </v-col>
+        <v-col>
+          <v-btn small class="mt-4" dark fab color="cyan" @click="searchByTitle" >
+          <v-icon medium > mdi-magnify </v-icon>
+          </v-btn>
+        </v-col>
+        <v-col>
+             <v-btn medium dark fab color="cyan" @click="Clear"
           ><v-icon large >mdi-autorenew</v-icon>
           </v-btn>
-      </div>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-form>
     <div class="mb-4">
           <v-btn class="mr-4" dark color="red" @click="sortAsc"
           >Sort Asc
@@ -24,7 +43,6 @@
           >Sort Desc
           </v-btn>
       </div>
-    </div>
     <div>  
       <v-dialog v-model="showCat" width="500">
       <v-card>
@@ -141,11 +159,13 @@ import { getAuth } from 'firebase/auth'
 export default {
   data() {
     return {
-        ind:0,
-        view: false,
-        diaries:[],
+      ind:0,
+      view: false,
+      diaries:[],
+      filteredDiaries:[],
       curDiary:null,
       categories:[],
+      title:"",
       categoriesList: [],
       category:"",
     };
@@ -155,6 +175,16 @@ export default {
       var index = this.categories.indexOf(this.category);
       this.diaries = await DiaryRepository.methods.retrieveDiariesByCategory(this.categoriesList[index].id);
       this.curDiary = this.diaries[0];
+    },
+    async searchByTitle(){
+      for(let index=0 ;index < this.diaries.length; index++){
+        if(this.title === this.diaries[index].title){
+          this.filteredDiaries.push(this.diaries[index]);
+        }
+      }
+      this.diaries=this.filteredDiaries;
+      this.filteredDiaries=null;
+      this.curDiary=this.diaries[0];
     },
     sortAsc(){
       //TODOOOOOOOOOOOOOOOOO

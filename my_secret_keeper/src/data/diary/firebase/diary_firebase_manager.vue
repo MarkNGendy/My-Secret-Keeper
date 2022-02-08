@@ -77,7 +77,7 @@ export default {
             let diaries=this.retrieveDiaries();
             let target=[]
             for(let i=0;i<diaries.length;i++){
-                if(diaries[i].title==title){
+                if(diaries[i].title===title){
                     target.push(diaries[i])
                 }
                    
