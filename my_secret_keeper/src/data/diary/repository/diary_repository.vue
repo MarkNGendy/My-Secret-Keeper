@@ -35,7 +35,9 @@ export default {
         async retrieveDiaries() {
             return await DiaryFirebaseManager.methods.retrieveDiaries();
         },
-
+        async searchDiaries(title) {
+            return await DiaryFirebaseManager.methods.searchDiaries(title);
+        }
     }
 }
 </script>
