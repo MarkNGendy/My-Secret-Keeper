@@ -46,7 +46,6 @@ export default {
                 var diary = doc.data();
                 diary.id = doc.id;
                 diaries.push(diary);
-                //console.log(diary.title);
             });
             for(let i=0; i<diaries.length; ++i){
                 var ntitle = this.decrypt(diaries[i].title);
@@ -63,7 +62,6 @@ export default {
                 var diary = doc.data();
                 diary.id = doc.id;
                 diaries.push(diary);
-                //console.log(diary.title);
             });
             for(let i=0; i<diaries.length; ++i){
                 var ntitle = this.decrypt(diaries[i].title);
