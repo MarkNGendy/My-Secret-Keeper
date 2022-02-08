@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div>
+    <div >
       <v-combobox
               class="mb-4"
               v-model="category"
@@ -9,11 +9,19 @@
               :items="categories"
       ></v-combobox>
       <div class="mb-4">
-        <v-btn class="mx-4" dark fab color="cyan" @click="searchByCategory" >
+        <v-btn class="mr-4" dark fab color="cyan" @click="searchByCategory" >
           <v-icon large > mdi-magnify </v-icon>
           </v-btn>
-          <v-btn dark fab color="cyan" @click="Clear"
+          <v-btn class="mr-4" dark fab color="cyan" @click="Clear"
           ><v-icon large >mdi-autorenew</v-icon>
+          </v-btn>
+      </div>
+    <div class="mb-4">
+          <v-btn class="mr-4" dark color="red" @click="sortAsc"
+          >Sort Asc
+          </v-btn>
+          <v-btn dark  color="red" @click="sortDesc"
+          >Sort Desc
           </v-btn>
       </div>
     </div>
@@ -37,7 +45,7 @@
   <v-dialog v-model="view" width="500">
         <template v-slot:activator="{ on, attrs }">
          <v-card flat v-for="(diary,index) in diaries" 
-         :key="index" 
+         :key="index"
          class="mx-auto" 
          v-bind="attrs"
          v-on="on"
@@ -148,11 +156,16 @@ export default {
       this.diaries = await DiaryRepository.methods.retrieveDiariesByCategory(this.categoriesList[index].id);
       this.curDiary = this.diaries[0];
     },
+    sortAsc(){
+      //TODOOOOOOOOOOOOOOOOO
+    },
+    sortDesc(){
+      //TODOOOOOOOOOOOOOOOOOO
+    },
     async Clear(){
-      //this.diaries=null;
       this.diaries = await DiaryRepository.methods.retrieveDiaries();
        for (let index = 0; index < this.diaries.length; index++) {
-        console.log(this.diaries[index]);
+        console.log(this.diaries[index].title);
       }
     },
       setCurrent(i){

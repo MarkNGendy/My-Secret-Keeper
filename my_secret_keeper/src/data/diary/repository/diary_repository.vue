@@ -32,13 +32,16 @@ export default {
             var response = await DiaryFirebaseManager.methods.deleteDiary(diary.id);
             return response;
         },
-        async retrieveDiaries() {
+        async retrieveDiaries() { 
             return await DiaryFirebaseManager.methods.retrieveDiaries();
         },
         async retrieveDiariesByCategory(id) {
             return await DiaryFirebaseManager.methods.retrieveDiariesByCategory(id);
         },
 
+        async searchDiaries(title) {
+            return await DiaryFirebaseManager.methods.searchDiaries(title);
+        }
     }
 }
 </script>

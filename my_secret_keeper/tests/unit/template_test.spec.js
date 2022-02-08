@@ -35,4 +35,10 @@ test("create template with an empty question",
         expect(value).toEqual("There is an Empty Question");
     }
 );
+test("delete template with empty id", 
+async () => {
+    const value = await TemplateRepository.methods.deleteTemplate("");
+    expect(value).toEqual("Cannot delete the desired Template");
+}
+);
 
