@@ -37,7 +37,7 @@ export default {
                 return "Diary is deleted successfully."; 
             } catch (error) {
                 return "Invalid Operation";
-            };
+            }
         },
         async retrieveDiaries(){
             const querySnapshot = await getDocs(query(collection(getFirestore(), "Diaries"), where("user_id", "==",getAuth().currentUser.uid)));
@@ -45,8 +45,8 @@ export default {
             querySnapshot.forEach((doc) => {
                 var diary = doc.data();
                 diary.id = doc.id;
-                console.log(diary);
                 diaries.push(diary);
+                console.log(diary.title);
             });
             for(let i=0; i<diaries.length; ++i){
                 var ntitle = this.decrypt(diaries[i].title);
@@ -55,6 +55,17 @@ export default {
                 diaries[i].body=nbody;
             }
             return diaries;
+        },
+        async searchDiaries(title){
+            let diaries=this.retrieveDiaries();
+            let target=[]
+            for(let i=0;i<diaries.length;i++){
+                if(diaries[i].title==title){
+                    target.push(diaries[i])
+                }
+                   
+            }
+            return target;
         },
         encrypt(data){
             var encrypted = "";
