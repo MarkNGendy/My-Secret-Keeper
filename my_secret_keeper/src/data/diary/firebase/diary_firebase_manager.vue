@@ -23,8 +23,8 @@ export default {
             try {
                 await updateDoc(doc(getFirestore(), "Diaries", id), {
                     date: date,
-                    body: body,
-                    title: title
+                    body: this.encrypt(body),
+                    title: this.encrypt(title)
                 });
                 return "Diary Updated successfully."; 
             } catch (error) {
