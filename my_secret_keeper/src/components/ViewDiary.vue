@@ -1,5 +1,39 @@
 <template>
+<div>
     <div>
+      <v-combobox
+              class="mb-4"
+              v-model="category"
+              label="Category"
+              prepend-icon="mdi-folder"
+              :items="categories"
+      ></v-combobox>
+      <div class="mb-4">
+        <v-btn class="mx-4" dark fab color="cyan" @click="searchByCategory" >
+          <v-icon large > mdi-magnify </v-icon>
+          </v-btn>
+          <v-btn dark fab color="cyan" @click="Clear"
+          ><v-icon large >mdi-autorenew</v-icon>
+          </v-btn>
+      </div>
+    </div>
+    <div>  
+      <v-dialog v-model="showCat" width="500">
+      <v-card>
+        <v-card-title class="text-h5 grey lighten-2">
+          Choose Category
+        </v-card-title>
+        <v-list>
+            <v-list-item-group>
+                <v-list-item @click="setCat(cat)" v-for="cat in categoriesList" :key="cat.name">
+                    <v-list-item-content>
+                      <v-list-item-title v-text="cat.name"></v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+            </v-list-item-group>
+        </v-list>
+      </v-card>
+    </v-dialog>
   <v-dialog v-model="view" width="500">
         <template v-slot:activator="{ on, attrs }">
          <v-card flat v-for="(diary,index) in diaries" 
@@ -62,7 +96,9 @@
         <v-card-text>
             {{curDiary.body}}
         </v-card-text>
-
+        <v-card-text>
+            {{curDiary.category_id}}
+        </v-card-text>
         <v-divider></v-divider>
 
         <v-card-actions>
@@ -86,9 +122,11 @@
       </v-card>
     </v-dialog>
     </div>
+</div>
 </template>
 
 <script>
+import CategoryRepository from "../data/category/repository/category_repository.vue"
 import DiaryRepository from "../data/diary/repository/diary_repository.vue";
 import EditDiary from '../components/EditDiary.vue';
 import { getAuth } from 'firebase/auth'
@@ -98,10 +136,25 @@ export default {
         ind:0,
         view: false,
         diaries:[],
-      curDiary:null
+      curDiary:null,
+      categories:[],
+      categoriesList: [],
+      category:"",
     };
   },
   methods: {
+     async searchByCategory(){
+      var index = this.categories.indexOf(this.category);
+      this.diaries = await DiaryRepository.methods.retrieveDiariesByCategory(this.categoriesList[index].id);
+      this.curDiary = this.diaries[0];
+    },
+    async Clear(){
+      //this.diaries=null;
+      this.diaries = await DiaryRepository.methods.retrieveDiaries();
+       for (let index = 0; index < this.diaries.length; index++) {
+        console.log(this.diaries[index]);
+      }
+    },
       setCurrent(i){
         this.curDiary=this.diaries[i];
       },
@@ -117,12 +170,23 @@ export default {
       },
   },
   created: async function() {
+    this.categoriesList = await CategoryRepository.methods.retrieveCategories();
+    for (let index = 0; index < this.categoriesList.length; index++) {
+        this.categories.push(this.categoriesList[index].name);
+      }
     this.diaries = await DiaryRepository.methods.retrieveDiaries();
     this.curDiary = this.diaries[0];
   },
+ 
   async mounted() {
-    getAuth().onAuthStateChanged(user => {
-        if (user) {
+      getAuth().onAuthStateChanged(user => {
+        if (user) {          
+           CategoryRepository.methods.retrieveCategories().then((data) => {
+             this.categoriesList=data;
+             for (let index = 0; index < this.categoriesList.length; index++) {
+            this.categories.push(this.categoriesList[index].name);
+           }
+           });
           DiaryRepository.methods.retrieveDiaries().then((data) => {
             this.diaries = data; 
             this.curDiary = this.diaries[0];

@@ -35,6 +35,9 @@ export default {
         async retrieveDiaries() {
             return await DiaryFirebaseManager.methods.retrieveDiaries();
         },
+        async retrieveDiariesByCategory(id) {
+            return await DiaryFirebaseManager.methods.retrieveDiariesByCategory(id);
+        },
 
     }
 }

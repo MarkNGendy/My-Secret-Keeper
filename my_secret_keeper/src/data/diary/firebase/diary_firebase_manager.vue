@@ -45,7 +45,18 @@ export default {
             querySnapshot.forEach((doc) => {
                 var diary = doc.data();
                 diary.id = doc.id;
-                console.log(diary);
+                //console.log(diary);
+                diaries.push(diary);
+            });
+            return diaries;
+        },
+        async retrieveDiariesByCategory(id){
+            const querySnapshot = await getDocs(query(collection(getFirestore(), "Diaries"), where("category_id", "==",id)));
+            let diaries = [];
+            querySnapshot.forEach((doc) => {
+                var diary = doc.data();
+                diary.id = doc.id;
+                //console.log(diary);
                 diaries.push(diary);
             });
             return diaries;

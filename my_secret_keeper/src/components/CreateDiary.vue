@@ -13,6 +13,7 @@
         >
           <v-icon large class=""> mdi-pencil </v-icon>
         </v-btn>
+        
       </template>
       <v-card>
         <v-card-title class="text-h5 grey lighten-2">
@@ -79,7 +80,6 @@
         </v-list>
       </v-card>
     </v-dialog>
-
     <v-dialog v-model="answer" width="500">
       <v-card>
         <v-card-title class="text-h5 grey lighten-2">
@@ -144,6 +144,7 @@ export default {
       templates: [],
       Questions:[],
       categories:[],
+      showCat:false,
     };
   },
   methods: {

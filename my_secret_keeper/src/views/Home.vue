@@ -3,9 +3,11 @@
     <HomeHeader></HomeHeader>
     <h1  style="font-weight:bold;font-size:55px;text-align: center" class="subheading white--text ml-10 mt-5"> My Diaries</h1>
     <v-divider></v-divider>
-      <v-flex class="mt-4 mb-3">
+    <div>
+    <v-flex class="mt-4 mb-3">
         <CreateDiary />
       </v-flex>
+    </div>
     <v-container class="my-5">
       <v-flex class="mt-4 mb-3">
         <ViewDiary key="viewDiaryKey"/>
