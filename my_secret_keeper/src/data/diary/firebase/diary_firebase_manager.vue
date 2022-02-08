@@ -8,8 +8,8 @@ export default {
             try {
                 await addDoc(collection(getFirestore(), "Diaries"), {
                     date: date,
-                    body: body,
-                    title:title,
+                    body: this.encrypt(body),
+                    title:this.encrypt(title),
                     user_id:getAuth().currentUser.uid,
                     category_id:categoryId,
                     template_id:""
@@ -48,6 +48,12 @@ export default {
                 console.log(diary);
                 diaries.push(diary);
             });
+            for(let i=0; i<diaries.length; ++i){
+                var ntitle = this.decrypt(diaries[i].title);
+                var nbody = this.decrypt(diaries[i].body);
+                diaries[i].title=ntitle;
+                diaries[i].body=nbody;
+            }
             return diaries;
         },
         encrypt(data){
