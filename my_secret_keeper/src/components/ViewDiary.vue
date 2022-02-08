@@ -144,6 +144,8 @@ export default {
         ind:0,
         view: false,
         diaries:[],
+        showCat:false,
+        offset:true,
       curDiary:null,
       categories:[],
       categoriesList: [],
@@ -153,20 +155,22 @@ export default {
   methods: {
      async searchByCategory(){
       var index = this.categories.indexOf(this.category);
-      this.diaries = await DiaryRepository.methods.retrieveDiariesByCategory(this.categoriesList[index].id);
+      var fetchedDiaries = await DiaryRepository.methods.retrieveDiariesByCategory(this.categoriesList[index].id);
+      this.diaries= fetchedDiaries;
       this.curDiary = this.diaries[0];
     },
     sortAsc(){
-      //TODOOOOOOOOOOOOOOOOO
+      this.diaries = DiaryRepository.methods.sortAscending(this.diaries);
     },
     sortDesc(){
-      //TODOOOOOOOOOOOOOOOOOO
+      this.diaries = DiaryRepository.methods.sortDescending(this.diaries);
     },
     async Clear(){
       this.diaries = await DiaryRepository.methods.retrieveDiaries();
        for (let index = 0; index < this.diaries.length; index++) {
         console.log(this.diaries[index].title);
       }
+      this.$router.go();
     },
       setCurrent(i){
         this.curDiary=this.diaries[i];
@@ -188,6 +192,7 @@ export default {
         this.categories.push(this.categoriesList[index].name);
       }
     this.diaries = await DiaryRepository.methods.retrieveDiaries();
+    
     this.curDiary = this.diaries[0];
   },
  
