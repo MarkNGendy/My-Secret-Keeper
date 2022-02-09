@@ -36,9 +36,28 @@ export default {
             return await DiaryFirebaseManager.methods.retrieveDiaries();
         },
         async retrieveDiariesByCategory(id) {
+            if(id === "")
+                return "Cannot Search by this category";
             return await DiaryFirebaseManager.methods.retrieveDiariesByCategory(id);
         },
-
+        retrieveCategories(diaries,cat){
+            let fetchedDiaries=[];
+            for(let i=0;i<diaries.length;i++){
+                if(diaries[i].category === cat){
+                    fetchedDiaries.push(diaries[i]);
+                }
+            }
+            return fetchedDiaries;
+        },
+        retrieveTitle(diaries,title){
+            let fetchedDiaries=[];
+            for(let i=0;i<diaries.length;i++){
+                if(diaries[i].title === title){
+                    fetchedDiaries.push(diaries[i]);
+                }
+            }
+         return fetchedDiaries;
+        },
         async searchDiaries(title) {
             return await DiaryFirebaseManager.methods.searchDiaries(title);
         },

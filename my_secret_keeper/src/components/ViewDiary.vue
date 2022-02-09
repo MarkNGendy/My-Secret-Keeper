@@ -123,7 +123,7 @@
             {{curDiary.body}}
         </v-card-text>
         <v-card-text>
-            {{curDiary.category_id}}
+            {{curDiary.date}}
         </v-card-text>
         <v-divider></v-divider>
 
