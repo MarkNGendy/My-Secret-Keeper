@@ -54,3 +54,89 @@ async () => {
 }
 );
 
+test("sort ascending", 
+async () => {
+    const diary1 = {
+        date: "2021-06-03"
+    };
+    const diary2 = {
+      date: "2021-06-04",
+    };
+    const diary3 = {
+      date: "2021-07-04",
+    };
+    var diaries = [
+        diary1, diary2, diary3
+    ]
+    const value = await DiaryRepository.methods.sortAscending(diaries);
+    expect(value).toEqual(diaries);
+}
+);
+
+test("sort descending", async () => {
+  const diary1 = {
+    date: "2021-06-03",
+  };
+  const diary2 = {
+    date: "2021-06-04",
+  };
+  const diary3 = {
+    date: "2021-07-04",
+  };
+  var diaries = [diary1, diary2, diary3];
+  var sorted = [diary3, diary2, diary1];
+  const value = await DiaryRepository.methods.sortDescending(diaries);
+  expect(value).toEqual(sorted);
+});
+
+test("sort ascending then descending", async () => {
+  const diary1 = {
+    date: "2021-06-03",
+  };
+  const diary2 = {
+    date: "2021-06-04",
+  };
+  const diary3 = {
+    date: "2021-07-04",
+  };
+  var diaries = [diary1, diary2, diary3];
+  var sorted = [diary3, diary2, diary1];
+  var value = await DiaryRepository.methods.sortAscending(diaries);
+  value = await DiaryRepository.methods.sortDescending(diaries);
+  expect(value).toEqual(sorted);
+});
+
+test("sort descending then ascending", async () => {
+  const diary1 = {
+    date: "2021-06-03",
+  };
+  const diary2 = {
+    date: "2021-06-04",
+  };
+  const diary3 = {
+    date: "2021-07-04",
+  };
+  var diaries = [diary1, diary2, diary3];
+  var sorted = [diary3, diary2, diary1];
+  var value = await DiaryRepository.methods.sortDescending(diaries);
+  value = await DiaryRepository.methods.sortAscending(diaries);
+  expect(value).toEqual(diaries);
+});
+
+test("sort ascending then descending then ascending", async () => {
+  const diary1 = {
+    date: "2021-06-03",
+  };
+  const diary2 = {
+    date: "2021-06-04",
+  };
+  const diary3 = {
+    date: "2021-07-04",
+  };
+  var diaries = [diary1, diary2, diary3];
+  var sorted = [diary3, diary2, diary1];
+  var value = await DiaryRepository.methods.sortAscending(diaries);
+  value = await DiaryRepository.methods.sortDescending(diaries);
+  value = await DiaryRepository.methods.sortAscending(diaries);
+  expect(value).toEqual(diaries);
+});
