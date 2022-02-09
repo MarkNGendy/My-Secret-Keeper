@@ -41,6 +41,9 @@ export default {
             return await DiaryFirebaseManager.methods.retrieveDiariesByCategory(id);
         },
         retrieveCategories(diaries,cat){
+            if(cat === ""){
+                return "There is no category defined";
+                }
             let fetchedDiaries=[];
             for(let i=0;i<diaries.length;i++){
                 if(diaries[i].category === cat){
@@ -50,6 +53,9 @@ export default {
             return fetchedDiaries;
         },
         retrieveTitle(diaries,title){
+            if(title === ""){
+                return "There is no title defined";
+                }
             let fetchedDiaries=[];
             for(let i=0;i<diaries.length;i++){
                 if(diaries[i].title === title){

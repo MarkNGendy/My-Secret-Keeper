@@ -41,4 +41,10 @@ async () => {
     expect(value).toEqual("Cannot delete the desired Template");
 }
 );
+test("delete template with empty id", 
+async () => {
+    const value = await TemplateRepository.methods.deleteTemplate("");
+    expect(value).toEqual("Cannot delete the desired Template");
+}
+);
 

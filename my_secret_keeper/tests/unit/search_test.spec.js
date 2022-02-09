@@ -77,6 +77,18 @@ test("search by non existing title",
         expect(values).toEqual(realValues);
     }
 );
+test("search by empty Title", 
+    async () => {
+        var values = await DiaryRepository.methods.retrieveTitle(diaries,"");
+        expect(values).toEqual("There is no title defined");
+    }
+);
+test("search by empty Category", 
+    async () => {
+        var values = await DiaryRepository.methods.retrieveCategories(diaries,"");
+        expect(values).toEqual("There is no category defined");
+    }
+);
 test("search by empty category id", 
     async () => {
         const value = await DiaryRepository.methods.retrieveDiariesByCategory("");
